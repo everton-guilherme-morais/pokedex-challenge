@@ -89,11 +89,12 @@ async favoritePokemon(userId: number, pokemonId: number, pokemonName: string, po
 
   async unfavoritePokemon(pokemonId: number): Promise<void> {
     try {
-      await this.prisma.favoritePoke.delete({
-        where: {
-          id: pokemonId,
-        },
-      });
+      // Possível código para removção do pokemon
+      // await this.prisma.favoritePoke.delete({
+      //   where: {
+      //     id: pokemonId,
+      //   },
+      // });
     } catch (error) {
       throw new Error(`Failed to unfavorite Pokemon: ${error.message}`);
     }
