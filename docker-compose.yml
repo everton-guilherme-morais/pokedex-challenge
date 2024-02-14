@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   app:
+    container_name: evertongui/pokedex
     build: .
     ports:
       - '3000:3000'
