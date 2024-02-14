@@ -24,8 +24,6 @@ export default function Login() {
     try {
       setLoading(true)
       const response = await axios.get('http://localhost:3001/pokemon/random');
-      console.log(response, 'response')
-      console.log('URL da imagem:', response.data.image);
       setRandomPokemon(response.data);
     } catch (error) {
       console.error('Erro ao buscar Pokémon:', error);
@@ -59,7 +57,6 @@ export default function Login() {
   };
 
   const showNotification = () => {
-    console.log('teste')
     toast.success('POKEMON SALVO COM SUCESSO', {
       position: 'top-right',
       autoClose: 3000,

@@ -27,7 +27,6 @@ export class PokemonController {
   @IsPublic()
   @Get(':userId/favorites')
   async getFavoritePokemonsByUserId(@Param('userId') userId: number): Promise<Pokemon[]> {
-    console.log(userId, 'userId')
     return this.userPokemonService.getFavoritePokemonsByUserId(userId);
   }
 

@@ -70,7 +70,7 @@ async favoritePokemon(userId: number, pokemonId: number, pokemonName: string, po
     });
 
     if (existingFavorite) {
-      throw new Error(`O Pokémon com o ID ${pokemonId} já foi favoritado pelo usuário com o ID ${userId}`);
+      throw new Error(`O Pokémon com o ID ${pokemonId} já foi favoritado`);
     }
 
     await this.prisma.favoritePoke.create({
