@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@100;300;400;500;700;900&family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
+
+.container {
+  background-image: url('/back_pokedex.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.wrapper {
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 0 rgb(165, 18, 18);
+  padding: 40px;
+  max-width: 300px;
+}
+
+.buttonsForm {
+  margin-bottom: 20px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  gap: 10px;
+}
+
+.button {
+  padding: 8px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #bca5a5;
+}
+
+.input[type="text"], 
+.input[type="password"], 
+.input[type="userName"] {
+  border: none;
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 10px 15px;
+  outline: none;
+  width: 100%;
+  color: black;
+}
+
+.submit {
+  background: #a3170d;
+  color: white;
+  border-radius: 30px;
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s;
+}
+
+.submit:hover {
+  background-color: #b62c0d;
+}
