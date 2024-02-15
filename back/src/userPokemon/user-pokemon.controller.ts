@@ -60,7 +60,6 @@ export class PokemonController {
     await this.userPokemonService.unfavoritePokemon(pokemonId);
   }
   
-  @IsPublic()
   @ApiOperation({ summary: 'Editar nome do Pokemon favorito por ID de usuário e ID de Pokemon' })
   @ApiParam({ name: 'pokemonId', description: 'ID do Pokemon', example: 1 })
   @ApiParam({ name: 'userId', description: 'ID do usuário', example: 1 })
@@ -84,7 +83,6 @@ export class PokemonController {
     return this.userPokemonService.getRandomPokemon();
   }
 
-  @IsPublic()
   @ApiOperation({ summary: 'Obter Pokemons favoritos por ID do usuário em ordem alfabética' })
   @ApiParam({ name: 'userId', description: 'ID do usuário', example: 1 })
   @ApiResponse({ status: 200, description: 'Lista de Pokemons favoritos obtida com sucesso', type: Pokemon, isArray: true })
@@ -93,12 +91,21 @@ export class PokemonController {
     return this.userPokemonService.getFavoritePokemonsByUserIdAlphabeticalOrder(userId);
   }
 
-  @IsPublic()
   @ApiOperation({ summary: 'Obter Pokemons favoritos por ID do usuário em ordem de captura' })
   @ApiParam({ name: 'userId', description: 'ID do usuário', example: 1 })
   @ApiResponse({ status: 200, description: 'Lista de Pokemons favoritos obtida com sucesso', type: Pokemon, isArray: true })
   @Get(':userId/favorites/capture')
   async getFavoritePokemonsByUserIdCaptureOrder(@Param('userId') userId: number): Promise<Pokemon[]> {
     return this.userPokemonService.getFavoritePokemonsByUserIdCaptureOrder(userId);
+  }
+
+  @ApiOperation({ summary: 'Obter Pokemons favoritos por tipo e ID do usuário em ordem alfabética' })
+  @ApiParam({ name: 'userId', description: 'ID do usuário', example: 1 })
+  @ApiResponse({ status: 200, description: 'Lista de Pokemons favoritos por tipo em ordem alfabética obtida com sucesso', type: Pokemon, isArray: true })
+  @Get(':userId/favorites/byTypeAlphabetical')
+  async getFavoritePokemonsByUserIdAndTypeAlphabetical(
+    @Param('userId') userId: number
+  ): Promise<Pokemon[]> {
+    return this.userPokemonService.getFavoritePokemonsByUserIdAlphabeticalType(userId);
   }
 }

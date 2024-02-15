@@ -258,6 +258,55 @@ async favoritePokemon(userId: number, pokemonId: number, pokemonName: string, po
       throw new Error(`Failed to get favorite Pokemons in capture order: ${error.message}`);
     }
   }
+
+  async getFavoritePokemonsByUserIdAlphabeticalType(userId: number): Promise<Pokemon[]> {
+    try {
+      const colors = {
+        fire: '#FDDFDF',
+        grass: '#DEFDE0',
+        electric: '#FCF7DE',
+        water: '#DEF3FD',
+        ground: '#f4e7da',
+        rock: '#d5d5d4',
+        fairy: '#fceaff',
+        poison: '#98d7a5',
+        bug: '#f8d5a3',
+        dragon: '#97b3e6',
+        psychic: '#eaeda1',
+        flying: '#F5F5F5',
+        fighting: '#E6E0D4',
+        normal: '#F5F5F5'
+      };
+  
+      const favoritePokemons = await this.prisma.favoritePoke.findMany({
+        where: {
+          userId,
+        },
+      });
+  
+      favoritePokemons.sort((a, b) => {
+        if (a.type.toLowerCase() < b.type.toLowerCase()) {
+          return -1;
+        }
+        if (a.type.toLowerCase() > b.type.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
+
+      const formattedPokemons: Pokemon[] = favoritePokemons.map(pokemon => ({
+        id: pokemon.pokemonId,
+        name: capitalizeFirstLetter(pokemon.namePokemon),
+        types: [capitalizeFirstLetter(pokemon.type)],
+        imageUrl: pokemon.imageUrl,
+        color: colors[pokemon.type] || '#FFFFFF',
+      }));
+  
+      return formattedPokemons;
+    } catch (error) {
+      throw new Error(`Failed to get favorite Pokemons by alphabetical type: ${error.message}`);
+    }
+  }
 }
 
 function capitalizeFirstLetter(string: string): string {
