@@ -92,7 +92,7 @@ export default function pokerHome() {
                   <h3 className={styles.name}>{randomPokemon.name}</h3>
                   <small className={styles.type}>Type: <span>{randomPokemon.types}</span></small>
                   <button className={styles.savePoke} onClick={() => handleSavePokemon(randomPokemon)}>
-                    save
+                    captur
                   </button>
                 </div>      
               </div>

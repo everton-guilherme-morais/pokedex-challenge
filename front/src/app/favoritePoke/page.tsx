@@ -45,49 +45,61 @@ const FavoritePoke: React.FC = () => {
 
   const handleEditPokemonName = async (pokemonId: number) => {
     const newName = prompt('Digite o novo nome do Pokémon:');
-    if (newName) {
-      try {
-        const userId = localStorage.getItem('idUser');
-        if (!userId) {
-          console.error('idUser não encontrado no localStorage');
-          return;
+  if (newName) {
+    try {
+      const accessToken = localStorage.getItem('access_token');
+      if (!accessToken) {
+        console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
+        return;
+      }
+      await axios.patch(`http://localhost:3001/pokemon/${pokemonId}/edit`, { newName }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
         }
-        await axios.patch(`http://localhost:3001/pokemon/${pokemonId}/${userId}/edit`, { newName });
-        const updatedPokemons = favoritePokemons.map(pokemon =>
-          pokemon.id === pokemonId ? { ...pokemon, name: newName } : pokemon
-        );
-        setFavoritePokemons(updatedPokemons);
-      } catch (error) {
-        console.error('Erro ao editar o nome do Pokémon:', error);
+      });
+      const updatedPokemons = favoritePokemons.map(pokemon =>
+        pokemon.id === pokemonId ? { ...pokemon, name: newName } : pokemon
+      );
+      setFavoritePokemons(updatedPokemons);
+    } catch (error) {
+      console.error('Erro ao editar o nome do Pokémon:', error);
+    }
+  }
+  };
+
+  const sortPokemonsByAlphabetical = async () => {
+    try {
+      const accessToken = localStorage.getItem('access_token');
+      if (!accessToken) {
+        console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
+        return;
       }
+      const response = await axios.get(`http://localhost:3001/pokemon/favorites/alphabetical`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      setFavoritePokemons(response.data);
+    } catch (error) {
+      console.error('Erro ao ordenar os pokémons por ordem alfabética:', error);
     }
   };
 
-  const sortPokemonsByType = async () => {
+  const sortPokemonsByCapture = async () => {
     try {
-      const userId = localStorage.getItem('idUser');
-      if (!userId) {
-        console.error('idUser não encontrado no localStorage');
+      const accessToken = localStorage.getItem('access_token');
+      if (!accessToken) {
+        console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
         return;
       }
-      const response = await axios.get(`http://localhost:3001/pokemon/${userId}/favorites/capture`);
+      const response = await axios.get(`http://localhost:3001/pokemon/favorites/capture`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
       setFavoritePokemons(response.data);
     } catch (error) {
-      console.error('Erro ao ordenar os pokémons por tipo:', error);
-    }
-  };
-
-  const sortPokemonsByName = async () => {
-    try {
-      const userId = localStorage.getItem('idUser');
-      if (!userId) {
-        console.error('idUser não encontrado no localStorage');
-        return;
-      }
-      const response = await axios.get(`http://localhost:3001/pokemon/${userId}/favorites/alphabetical`);
-      setFavoritePokemons(response.data);
-    } catch (error) {
-      console.error('Erro ao ordenar os pokémons por nome:', error);
+      console.error('Erro ao ordenar os pokémons por data de captura:', error);
     }
   };
 
@@ -103,6 +115,24 @@ const FavoritePoke: React.FC = () => {
     setFavoritePokemons(sortedPokemons);
   };
 
+  const sortPokemonsByType = async () => {
+    try {
+      const accessToken = localStorage.getItem('access_token');
+      if (!accessToken) {
+        console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
+        return;
+      }
+      const response = await axios.get(`http://localhost:3001/pokemon/favorites/byTypeAlphabetical`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      setFavoritePokemons(response.data);
+    } catch (error) {
+      console.error('Erro ao ordenar os pokémons por tipo:', error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -112,9 +142,10 @@ const FavoritePoke: React.FC = () => {
         </Link>
         <h1>Meus pokemons favoritos</h1>
         <div className={styles.buttonsFilter}>
-          <button className={styles.button} onClick={sortPokemonsByType}>Ordenar por order alfabética</button>
-          <button className={styles.button} onClick={sortPokemonsByName}>Ordenar por data de captura</button>
+          <button className={styles.button} onClick={sortPokemonsByAlphabetical}>Ordenar por order alfabética</button>
+          <button className={styles.button} onClick={sortPokemonsByCapture}>Ordenar por data de captura</button>
           <button className={styles.button} onClick={sortPokemonsByAlphabeticalAndCaptureDate}>Ordenar por data de captura e por ordem alfabética</button>
+          <button className={styles.button} onClick={sortPokemonsByType}>Ordenar por tipo</button>
         </div>
         <div className={styles.containerPokedex}>
           {favoritePokemons.length === 0 ? (
