@@ -6,12 +6,6 @@ export const APP_ROUTES = {
         favoritepoke: {
             name: '/search'
         },
-        // info: {
-        //     name: '/info'
-        // },
-        // info: {
-        //     name: '/info'
-        // },
     },
     public: {
         login: '/',

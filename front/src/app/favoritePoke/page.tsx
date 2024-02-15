@@ -13,11 +13,11 @@ interface Pokemon {
   types: string[];
   imageUrl: string;
   color: string;
-  captureDate: string; // Adiciona a propriedade captureDate ao tipo Pokemon
+  captureDate: string;
 }
 
 
-const UserDetails: React.FC = () => {
+const FavoritePoke: React.FC = () => {
   const [favoritePokemons, setFavoritePokemons] = useState<Pokemon[]>([]);
   const [sortedPokemons, setSortedPokemons] = useState<Pokemon[]>([]);
 
@@ -94,7 +94,6 @@ const UserDetails: React.FC = () => {
   const sortPokemonsByAlphabeticalAndCaptureDate = () => {
     const sortedPokemons = [...favoritePokemons];
     sortedPokemons.sort((a, b) => {
-      // Ordenar por ordem alfabética
       const nameComparison = a.name.localeCompare(b.name);
       if (nameComparison !== 0) {
         return nameComparison;
@@ -143,4 +142,4 @@ const UserDetails: React.FC = () => {
   );
 };
 
-export default UserDetails;
+export default FavoritePoke;

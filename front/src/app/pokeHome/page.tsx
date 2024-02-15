@@ -15,8 +15,7 @@ interface Pokemon {
   color: string;
 }
 
-export default function Login() {
-  const [pokemonData, setPokemonData] = useState<Pokemon[]>([]);
+export default function pokerHome() {
   const [loading, setLoading] = useState<boolean>(false);
   const [randomPokemon, setRandomPokemon] = useState<Pokemon | null>(null);
 
