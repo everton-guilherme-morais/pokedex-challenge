@@ -8,11 +8,13 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
   const { register, handleSubmit } = useForm();
   const router = useRouter();
 
+  
+
   const handleSignupSubmit = useCallback(async (data: any) => {
+    
     try {
-      await axios.post('http://localhost:3001/user/signup', data);
+      await axios.post(`${process.env.BACKEND_POKE}/user/signup`, data);
       router.push('/login');
-      // Adicione aqui qualquer lógica adicional após o cadastro ser realizado com sucesso
     } catch (error) {
       console.error('Erro no cadastro:', error);
     }

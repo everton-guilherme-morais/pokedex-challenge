@@ -6,6 +6,7 @@ import axios from 'axios';
 import { FaArrowLeft } from 'react-icons/fa';
 import { BiPencil } from "react-icons/bi";
 import Link from 'next/link';
+import { api } from '../lib/axios';
 
 interface Pokemon {
   id: number;
@@ -36,7 +37,7 @@ const FavoritePoke: React.FC = () => {
         console.error('idUser não encontrado no localStorage');
         return;
       }
-      const response = await axios.get(`http://localhost:3001/pokemon/${userId}/favorites`);
+      const response = await api.get(`/pokemon/${userId}/favorites`);
       setFavoritePokemons(response.data);
     } catch (error) {
       console.error('Erro ao obter os pokémons favoritos:', error);
@@ -52,7 +53,7 @@ const FavoritePoke: React.FC = () => {
         console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
         return;
       }
-      await axios.patch(`http://localhost:3001/pokemon/${pokemonId}/edit`, { newName }, {
+      await api.patch(`/pokemon/${pokemonId}/edit`, { newName }, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
@@ -74,7 +75,7 @@ const FavoritePoke: React.FC = () => {
         console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
         return;
       }
-      const response = await axios.get(`http://localhost:3001/pokemon/favorites/alphabetical`, {
+      const response = await api.get(`/pokemon/favorites/alphabetical`, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
@@ -92,7 +93,7 @@ const FavoritePoke: React.FC = () => {
         console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
         return;
       }
-      const response = await axios.get(`http://localhost:3001/pokemon/favorites/capture`, {
+      const response = await api.get(`/pokemon/favorites/capture`, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
@@ -122,7 +123,7 @@ const FavoritePoke: React.FC = () => {
         console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
         return;
       }
-      const response = await axios.get(`http://localhost:3001/pokemon/favorites/byTypeAlphabetical`, {
+      const response = await api.get(`/favorites/byTypeAlphabetical`, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }

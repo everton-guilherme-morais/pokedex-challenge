@@ -9,8 +9,10 @@ const Login = () => {
   const router = useRouter();
 
   const handleLoginSubmit = useCallback(async (data: any) => {
+    const backendURL = process.env.BACKEND_POKE;
+    
     try {
-      const response = await axios.post('http://localhost:3001/login', data);
+      const response = await axios.post(`${backendURL}/login`, data);
       localStorage.setItem('access_token', response.data.access_token);
       localStorage.setItem('idUser', response.data.id);
       router.push('/pokeHome');

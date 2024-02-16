@@ -18,7 +18,7 @@ export default function Login() {
     setUser(JSON.stringify(data, null, 2))
 
     try {
-      await axios.post('http://localhost:3001/user/singup', data);
+      await axios.post(`${process.env.BACKEND_POKE}/user/singup`, data);
       handleFormChange('signin');
     } catch (error) {
       console.error('Erro no cadastro:', error);
@@ -28,7 +28,7 @@ export default function Login() {
   const handleSigninSubmit = useCallback(async (data: any) => {
     setUser(JSON.stringify(data, null, 2))
     try {
-      const response = await axios.post('http://localhost:3001/login', data);
+      const response = await axios.post(`${process.env.BACKEND_POKE}/login`, data);
       localStorage.setItem('access_token', response.data.access_token);
       localStorage.setItem('idUser', response.data.id);
     } catch (error) {

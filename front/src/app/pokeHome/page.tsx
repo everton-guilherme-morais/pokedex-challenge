@@ -18,11 +18,12 @@ interface Pokemon {
 export default function pokerHome() {
   const [loading, setLoading] = useState<boolean>(false);
   const [randomPokemon, setRandomPokemon] = useState<Pokemon | null>(null);
-
+  const backendURL = process.env.BACKEND_POKE;
+  
   const handleSearchPokemon = async () => {
     try {
       setLoading(true)
-      const response = await axios.get('http://localhost:3001/pokemon/random');
+      const response = await axios.get(`${backendURL}/pokemon/random`);
       setRandomPokemon(response.data);
     } catch (error) {
       console.error('Erro ao buscar Pokémon:', error);
@@ -46,7 +47,7 @@ export default function pokerHome() {
         imageUrl: pokemon.image,
       };
 
-      await axios.post(`http://localhost:3001/pokemon/${userId}/${pokemon.id}/favorite`, body);
+      await axios.post(`${backendURL}/pokemon/${userId}/${pokemon.id}/favorite`, body);
 
       showNotification();
       console.log('Pokemon favoritado com sucesso!');
