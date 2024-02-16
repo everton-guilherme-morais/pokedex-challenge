@@ -5,6 +5,7 @@ import styles from './styles.module.css';
 import axios from 'axios';
 import { useForm, }  from 'react-hook-form'
 import { useRouter } from 'next/navigation';
+import { api } from './lib/axios';
 
 export default function Login() {
 
@@ -18,7 +19,7 @@ export default function Login() {
     setUser(JSON.stringify(data, null, 2))
 
     try {
-      await axios.post(`${process.env.BACKEND_POKE}/user/singup`, data);
+      await api.post(`/user/signup`, data);
       handleFormChange('signin');
     } catch (error) {
       console.error('Erro no cadastro:', error);
@@ -28,7 +29,7 @@ export default function Login() {
   const handleSigninSubmit = useCallback(async (data: any) => {
     setUser(JSON.stringify(data, null, 2))
     try {
-      const response = await axios.post(`${process.env.BACKEND_POKE}/login`, data);
+      const response = await api.post(`/login`, data);
       localStorage.setItem('access_token', response.data.access_token);
       localStorage.setItem('idUser', response.data.id);
     } catch (error) {

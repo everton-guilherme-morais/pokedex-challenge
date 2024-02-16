@@ -6,6 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';
+import { api } from '../lib/axios';
 
 interface Pokemon {
   id: number;
@@ -18,12 +19,11 @@ interface Pokemon {
 export default function pokerHome() {
   const [loading, setLoading] = useState<boolean>(false);
   const [randomPokemon, setRandomPokemon] = useState<Pokemon | null>(null);
-  const backendURL = process.env.BACKEND_POKE;
   
   const handleSearchPokemon = async () => {
     try {
       setLoading(true)
-      const response = await axios.get(`${backendURL}/pokemon/random`);
+      const response = await api.get(`/pokemon/random`);
       setRandomPokemon(response.data);
     } catch (error) {
       console.error('Erro ao buscar Pokémon:', error);
@@ -47,7 +47,7 @@ export default function pokerHome() {
         imageUrl: pokemon.image,
       };
 
-      await axios.post(`${backendURL}/pokemon/${userId}/${pokemon.id}/favorite`, body);
+      await api.post(`/pokemon/${userId}/${pokemon.id}/favorite`, body);
 
       showNotification();
       console.log('Pokemon favoritado com sucesso!');

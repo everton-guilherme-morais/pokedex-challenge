@@ -3,6 +3,7 @@ import styles from './cadastro.module.css';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { api } from '@/app/lib/axios';
 
 const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
   const { register, handleSubmit } = useForm();
@@ -13,7 +14,7 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
   const handleSignupSubmit = useCallback(async (data: any) => {
     
     try {
-      await axios.post(`${process.env.BACKEND_POKE}/user/signup`, data);
+      await api.post(`/user/signup`, data);
       router.push('/login');
     } catch (error) {
       console.error('Erro no cadastro:', error);

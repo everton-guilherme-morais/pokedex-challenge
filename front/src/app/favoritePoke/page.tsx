@@ -49,11 +49,12 @@ const FavoritePoke: React.FC = () => {
   if (newName) {
     try {
       const accessToken = localStorage.getItem('access_token');
+      const userId = localStorage.getItem('idUser');
       if (!accessToken) {
         console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
         return;
       }
-      await api.patch(`/pokemon/${pokemonId}/edit`, { newName }, {
+      await api.patch(`/pokemon/${pokemonId}/${userId}/edit`, { newName }, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
@@ -71,11 +72,12 @@ const FavoritePoke: React.FC = () => {
   const sortPokemonsByAlphabetical = async () => {
     try {
       const accessToken = localStorage.getItem('access_token');
+      const userId = localStorage.getItem('idUser');
       if (!accessToken) {
         console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
         return;
       }
-      const response = await api.get(`/pokemon/favorites/alphabetical`, {
+      const response = await api.get(`/pokemon/${userId}/favorites/alphabetical`, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
@@ -89,11 +91,12 @@ const FavoritePoke: React.FC = () => {
   const sortPokemonsByCapture = async () => {
     try {
       const accessToken = localStorage.getItem('access_token');
+      const userId = localStorage.getItem('idUser');
       if (!accessToken) {
         console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
         return;
       }
-      const response = await api.get(`/pokemon/favorites/capture`, {
+      const response = await api.get(`/pokemon/${userId}/favorites/capture`, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
@@ -119,11 +122,12 @@ const FavoritePoke: React.FC = () => {
   const sortPokemonsByType = async () => {
     try {
       const accessToken = localStorage.getItem('access_token');
+      const userId = localStorage.getItem('idUser');
       if (!accessToken) {
         console.error('Token JWT não encontrado no localStorage. Faça login primeiro.');
         return;
       }
-      const response = await api.get(`/favorites/byTypeAlphabetical`, {
+      const response = await api.get(`/pokemon/${userId}/favorites/byTypeAlphabetical`, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }

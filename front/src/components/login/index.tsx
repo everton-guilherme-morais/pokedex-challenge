@@ -3,16 +3,16 @@ import styles from './Login.module.css';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { api } from '@/app/lib/axios';
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const router = useRouter();
 
   const handleLoginSubmit = useCallback(async (data: any) => {
-    const backendURL = process.env.BACKEND_POKE;
     
     try {
-      const response = await axios.post(`${backendURL}/login`, data);
+      const response = await api.post(`/login`, data);
       localStorage.setItem('access_token', response.data.access_token);
       localStorage.setItem('idUser', response.data.id);
       router.push('/pokeHome');
