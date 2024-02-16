@@ -103,7 +103,7 @@ export class PokemonController {
   @ApiParam({ name: 'userId', description: 'ID do usuário', example: 1 })
   @ApiResponse({ status: 200, description: 'Lista de Pokemons favoritos por tipo em ordem alfabética obtida com sucesso', type: Pokemon, isArray: true })
   @Get(':userId/favorites/byTypeAlphabetical')
-  async getFavoritePokemonsByUserIdAndTypeAlphabetical(
+  async getFavoritePokemonsByUserIdAlphabeticalType(
     @Param('userId') userId: number
   ): Promise<Pokemon[]> {
     return this.userPokemonService.getFavoritePokemonsByUserIdAlphabeticalType(userId);

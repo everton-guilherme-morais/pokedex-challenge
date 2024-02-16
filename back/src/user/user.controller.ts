@@ -14,7 +14,7 @@ export class UserController {
   @ApiOperation({ summary: 'Criar usuário' })
   @ApiResponse({ status: 201, description: 'Usuário criado com sucesso' })
   @ApiBadRequestResponse({ description: 'Requisição inválida' })
-  @Post('singup')
+  @Post('signup')
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
